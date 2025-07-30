@@ -63,6 +63,12 @@ public class SingleLinkedList
         }
         Console.WriteLine("null");
     }
+
+    public void DeleteHead()
+    {
+        if (Head != null)
+            Head = Head.Next;
+    }
 }
 
 class Program
