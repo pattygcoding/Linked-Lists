@@ -69,6 +69,31 @@ public class SingleLinkedList
         if (Head != null)
             Head = Head.Next;
     }
+
+    public void DeleteLast()
+    {
+        if (Head == null)
+        {
+            // List is empty
+            return;
+        }
+
+        if (Head.Next == null)
+        {
+            // Only one node in the list
+            Head = null;
+            return;
+        }
+
+        Node current = Head;
+        while (current.Next.Next != null)
+        {
+            current = current.Next;
+        }
+
+        // current.Next is the last node; remove it
+        current.Next = null;
+    }
 }
 
 class Program
