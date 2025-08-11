@@ -1,59 +1,58 @@
-class Node {
-    int data;
-    Node next;
-
-    Node(int data) {
-        this.data = data;
-        this.next = null;
+public class SinglyLinkedList {
+    static class Node {
+        int data;
+        Node next;
+        Node(int d) { data = d; }
     }
-}
 
-class SingleLinkedList {
-    Node head;
-
-    public SingleLinkedList() {
-        this.head = null;
-    }
+    private Node head;
 
     public void insert(int data) {
-        Node newNode = new Node(data);
-        newNode.next = head;
-        head = newNode;
+        Node n = new Node(data);
+        n.next = head;
+        head = n;
     }
 
     public void deleteNode(int key) {
-        Node temp = head;
-        Node prev = null;
+        Node temp = head, prev = null;
 
-        // If head node itself holds the key
         if (temp != null && temp.data == key) {
             head = temp.next;
             return;
         }
 
-        // Search for the key to be deleted
         while (temp != null && temp.data != key) {
             prev = temp;
             temp = temp.next;
         }
-
-        // If key was not present in the list
         if (temp == null) return;
 
         prev.next = temp.next;
     }
 
+    public void deleteHead() {
+        if (head != null) head = head.next;
+    }
+
+    public void deleteLast() {
+        if (head == null) return;
+        if (head.next == null) { head = null; return; }
+        Node cur = head;
+        while (cur.next.next != null) cur = cur.next;
+        cur.next = null;
+    }
+
     public void display() {
-        Node current = head;
-        while (current != null) {
-            System.out.print(current.data + " -> ");
-            current = current.next;
+        Node cur = head;
+        while (cur != null) {
+            System.out.print(cur.data + " -> ");
+            cur = cur.next;
         }
         System.out.println("null");
     }
 
     public static void main(String[] args) {
-        SingleLinkedList list = new SingleLinkedList();
+        SinglyLinkedList list = new SinglyLinkedList();
         list.insert(3);
         list.insert(2);
         list.insert(1);
