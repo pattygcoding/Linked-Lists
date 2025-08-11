@@ -1,62 +1,62 @@
 class Node {
-    constructor(data) {
-        this.data = data;
-        this.next = null;
-    }
+  constructor(data) {
+    this.data = data;
+    this.next = null;
+  }
 }
 
-class SingleLinkedList {
-    constructor() {
-        this.head = null;
+class SinglyLinkedList {
+  constructor() {
+    this.head = null;
+  }
+
+  insert(data) {
+    const n = new Node(data);
+    n.next = this.head;
+    this.head = n;
+  }
+
+  deleteNode(key) {
+    let temp = this.head, prev = null;
+
+    if (temp && temp.data === key) {
+      this.head = temp.next;
+      return;
     }
 
-    insert(data) {
-        const newNode = new Node(data);
-        newNode.next = this.head;
-        this.head = newNode;
+    while (temp && temp.data !== key) {
+      prev = temp;
+      temp = temp.next;
     }
+    if (!temp) return;
 
-    deleteNode(key) {
-        let temp = this.head;
-        let prev = null;
+    prev.next = temp.next;
+  }
 
-        // If head node itself holds the key
-        if (temp !== null && temp.data === key) {
-            this.head = temp.next;
-            return;
-        }
+  deleteHead() {
+    if (this.head) this.head = this.head.next;
+  }
 
-        // Search for the key to be deleted
-        while (temp !== null && temp.data !== key) {
-            prev = temp;
-            temp = temp.next;
-        }
+  deleteLast() {
+    if (!this.head) return;
+    if (!this.head.next) { this.head = null; return; }
+    let cur = this.head;
+    while (cur.next && cur.next.next) cur = cur.next;
+    cur.next = null;
+  }
 
-        // If key was not present in the list
-        if (temp === null) return;
-
-        prev.next = temp.next;
-    }
-
-    display() {
-        let current = this.head;
-        while (current !== null) {
-            process.stdout.write(current.data + ' -> ');
-            current = current.next;
-        }
-        console.log('null');
-    }
+  display() {
+    let cur = this.head, parts = [];
+    while (cur) { parts.push(cur.data); cur = cur.next; }
+    console.log(parts.join(" -> ") + " -> null");
+  }
 }
 
-// Example usage
-const list = new SingleLinkedList();
-list.insert(3);
-list.insert(2);
-list.insert(1);
-
-console.log('Original List:');
+// demo
+const list = new SinglyLinkedList();
+list.insert(3); list.insert(2); list.insert(1);
+console.log("Original List:");
 list.display();
-
 list.deleteNode(2);
-console.log('After Deleting 2:');
+console.log("After Deleting 2:");
 list.display();
