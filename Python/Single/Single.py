@@ -3,7 +3,8 @@ class Node:
         self.data = data
         self.next = None
 
-class SingleLinkedList:
+
+class SinglyLinkedList:
     def __init__(self):
         self.head = None
 
@@ -16,38 +17,47 @@ class SingleLinkedList:
         temp = self.head
         prev = None
 
-        # If head node itself holds the key
-        if temp is not None and temp.data == key:
+        if temp and temp.data == key:
             self.head = temp.next
             return
 
-        # Search for the key to be deleted
-        while temp is not None and temp.data != key:
+        while temp and temp.data != key:
             prev = temp
             temp = temp.next
 
-        # If key was not present in the list
         if temp is None:
             return
 
         prev.next = temp.next
 
+    def delete_head(self):
+        if self.head:
+            self.head = self.head.next
+
+    def delete_last(self):
+        if self.head is None:
+            return
+        if self.head.next is None:
+            self.head = None
+            return
+        cur = self.head
+        while cur.next.next is not None:
+            cur = cur.next
+        cur.next = None
+
     def display(self):
-        current = self.head
-        while current:
-            print(current.data, end=" -> ")
-            current = current.next
-        print("None")
+        cur = self.head
+        while cur:
+            print(f"{cur.data} -> ", end="")
+            cur = cur.next
+        print("null")
 
-# Example usage
-list = SingleLinkedList()
-list.insert(3)
-list.insert(2)
-list.insert(1)
 
-print("Original List:")
-list.display()
-
-list.delete_node(2)
-print("After Deleting 2:")
-list.display()
+if __name__ == "__main__":
+    lst = SinglyLinkedList()
+    lst.insert(3); lst.insert(2); lst.insert(1)
+    print("Original List:")
+    lst.display()
+    lst.delete_node(2)
+    print("After Deleting 2:")
+    lst.display()
